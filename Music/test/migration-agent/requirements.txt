@@ -1,0 +1,16 @@
+#pip install fastapi uvicorn
+#pip install sqlalchemy psycopg2-binary
+#pip install azure-identity
+#pip install azure-mgmt-resource
+#pip install azure-mgmt-web
+#pip install azure-mgmt-containerregistry
+#pip install azure-mgmt-automation
+
+fastapi
+uvicorn
+python-dotenv
+
+azure-identity
+azure-mgmt-resource
+
+pydantic
