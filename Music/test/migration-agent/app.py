@@ -12,6 +12,7 @@ app.include_router(
     prefix="/api"
 )
 
+
 @app.get("/")
 def health():
 

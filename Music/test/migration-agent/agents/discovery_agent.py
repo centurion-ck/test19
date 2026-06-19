@@ -1,5 +1,28 @@
 from azure.identity import DefaultAzureCredential
 from azure.mgmt.resource import ResourceManagementClient
+from database.db import SessionLocal
+from models.resource import Resource
+
+db = SessionLocal()
+
+for resource in resources:
+
+    db_resource = Resource(
+
+        name=resource.name,
+
+        resource_type=resource.type,
+
+        location=resource.location,
+
+        resource_id=resource.id,
+
+        migration_status="DISCOVERED"
+    )
+
+    db.add(db_resource)
+
+db.commit()
 
 class DiscoveryAgent:
 
