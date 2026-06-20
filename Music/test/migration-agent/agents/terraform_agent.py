@@ -97,7 +97,11 @@ resource "azurerm_service_plan" "{terraform_name}" {{
             terraform_plan_name = self._tf_name(server_farm_name)
 
             linux_fx_version = app_details.get("linux_fx_version", "")
-            python_version = linux_fx_version.split("|")[1] if "PYTHON|" in linux_fx_version else "3.8"
+            python_version = (
+                linux_fx_version.split("|")[1]
+                if "PYTHON|" in linux_fx_version
+                else "3.8"
+            )
 
             tf_code = f'''
 resource "azurerm_linux_web_app" "{terraform_name}" {{
@@ -110,10 +114,10 @@ resource "azurerm_linux_web_app" "{terraform_name}" {{
   site_config {{
     always_on  = {str(app_details.get("always_on", False)).lower()}
     ftps_state = "{app_details.get("ftps_state", "Disabled")}"
-  }}
 
-  application_stack {{
-    python_version = "{python_version}"
+    application_stack {{
+      python_version = "{python_version}"
+    }}
   }}
 }}
 '''
