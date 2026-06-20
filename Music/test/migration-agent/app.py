@@ -6,6 +6,9 @@ from api.terraform import router as terraform_router
 from api.migration_request import router as migration_request_router
 from api.export import router as export_router
 from api.resource_details import router as resource_details_router
+from database.db import Base, engine
+
+Base.metadata.create_all(bind=engine)
 
 from api.dependency import (
     router as dependency_router
