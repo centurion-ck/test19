@@ -1,12 +1,11 @@
-from sqlalchemy import Column
-from sqlalchemy import Integer
-from sqlalchemy import String
+from datetime import datetime
+
+from sqlalchemy import Column, Integer, String, DateTime
 
 from database.db import Base
 
 
 class Resource(Base):
-
     __tablename__ = "resources"
 
     id = Column(Integer, primary_key=True)
@@ -17,6 +16,12 @@ class Resource(Base):
 
     location = Column(String)
 
-    resource_id = Column(String)
+    resource_id = Column(String, unique=True)
 
     migration_status = Column(String)
+
+    created_at = Column(
+        DateTime,
+        default=datetime.utcnow,
+        nullable=False
+    )
