@@ -10,9 +10,38 @@ class TerraformAgent:
         """
         return name.replace("-", "_").replace(".", "_")
 
+    def _generate_provider_file(self):
+        provider_file = "terraform/generated/provider.tf"
+
+        if os.path.exists(provider_file):
+            return
+
+        provider_code = '''
+terraform {
+  required_providers {
+    azurerm = {
+      source  = "hashicorp/azurerm"
+      version = "~> 4.78"
+    }
+  }
+}
+
+provider "azurerm" {
+  features {}
+}
+'''
+
+        with open(provider_file, "w") as f:
+            f.write(provider_code)
+
     def generate(self, resource, destination_region, destination_rg):
 
-        os.makedirs("terraform/generated", exist_ok=True)
+        os.makedirs(
+            "terraform/generated",
+            exist_ok=True
+        )
+
+        self._generate_provider_file()
 
         resource_type = getattr(resource, "resource_type", "")
         resource_name = getattr(resource, "name", None)
